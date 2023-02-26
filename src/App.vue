@@ -1,44 +1,72 @@
 <template>
   <div>
-    <router-link to="/">Home</router-link>|
-    <router-link to="/about">About</router-link>
-    <router-view v-slot="{ Component }">
-      <template v-if="Component">
-        <KeepAlive>
-          <Suspense>
-            <!-- main content -->
-            <component :is="Component"></component>
+    <router-link :to="$i18nRoute({ name: 'Home' })">Home</router-link>|
+    <router-link :to="$i18nRoute({ name: 'About' })">About</router-link>|
+    <router-link to="/not-exist">Not Exist</router-link>
 
-            <!-- loading state -->
-            <template #fallback><div>Loading...</div></template>
-          </Suspense>
-        </KeepAlive>
-      </template>
-      <template v-else>
-        <div>Loading..........</div>
-      </template>
-    </router-view>
+    <main>
+      <router-view v-slot="{ Component }">
+        <template v-if="Component">
+          <KeepAlive>
+            <Suspense>
+              <!-- main content -->
+              <component :is="Component"></component>
+
+              <!-- loading state -->
+              <template #fallback>
+                <div>Loading...</div>
+              </template>
+            </Suspense>
+          </KeepAlive>
+        </template>
+        <template v-else>
+          <div>Loading..........</div>
+        </template>
+      </router-view>
+    </main>
   </div>
 </template>
 
-<style>
-@font-face {
-  font-family: 'Inter';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url('./assets/fonts/Inter-Italic.woff2#iefix') format('woff2'),
-    url('./assets/fonts/Inter-Italic.woff') format('woff');
+<style lang="scss">
+@import "./assets/scss/colors.scss";
+@import "./assets/scss/fonts.scss";
+@import "./assets/scss/index.scss";
+
+:root {
+  color: var(--primary);
+  font-size: max(16px, 0.73vw);
 }
-.inter {
-  font-family: 'Inter';
+
+@media screen and (max-width: 1024px) {
+  :root {
+    font-size: 14px;
+  }
 }
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+@media screen and (max-width: 768px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    font-size: 10px;
+  }
+}
+
+html {
+  background-color: var(--background);
+  font-family: "Roboto", cursive;
+}
+
+main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

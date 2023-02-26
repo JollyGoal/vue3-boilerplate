@@ -1,4 +1,4 @@
-# vue-project
+# vue3-boilerplate
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -15,6 +15,10 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ```sh
 npm install
 ```
+or
+```sh
+npm install --legacy-peer-deps
+```
 
 ### Compile and Hot-Reload for Development
 
@@ -22,14 +26,32 @@ npm install
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Compile and Minify for Production client and server
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Run production node server (after build)
+
+> No SSR API calls yet
+> No SSR meta tags change yet
 
 ```sh
-npm run lint
+npm run serve
+```
+
+### Generate static project (SSG)
+
+> Note: No i18n router optimization yet
+> No SSG meta tags change yet
+
+```sh
+npm run generate
+```
+
+### Debug server
+
+```sh
+npm run debug
 ```

@@ -1,0 +1,19 @@
+html {
+    --success: #00c566;
+    --error: #eb3f5e;
+    --warning: #ffcd1a;
+
+    --primary: #ffffff;
+    --secondary: #16133B;
+    --background: #000000;
+    --foreground: #FFFFFF;
+    --secondary-foreground: #f2f2f2;
+
+    &.light {
+        --primary: #183153;
+        --secondary: #16133B;
+        --background: #D8EDFF;
+        --foreground: #FFFFFF;
+        --secondary-foreground: #f2f2f2;
+    }
+}

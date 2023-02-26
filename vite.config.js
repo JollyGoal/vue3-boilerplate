@@ -1,7 +1,10 @@
 import path from 'node:path'
+import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from 'vite'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+// import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
+import vueI18n from '@intlify/vite-plugin-vue-i18n'
 
 const virtualFile = '@virtual-file'
 const virtualId = '\0' + virtualFile
@@ -17,9 +20,13 @@ globalThis.__vite_test_dirname = __dirname
 
 export default defineConfig(({ command, ssrBuild }) => ({
   base,
+  assetsInclude: ['**/*.splinecode'],  // custom asset type
   plugins: [
     vuePlugin(),
     vueJsx(),
+    vueI18n({
+      include: path.resolve(path.dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
+    }),
     {
       name: 'virtual',
       resolveId(id) {
@@ -31,11 +38,10 @@ export default defineConfig(({ command, ssrBuild }) => ({
         const ssrFromOptions = options?.ssr ?? false
         if (id === '@foo') {
           // Force a mismatch error if ssrBuild is different from ssrFromOptions
-          return `export default { msg: '${
-            command === 'build' && !!ssrBuild !== ssrFromOptions
+          return `export default { msg: '${command === 'build' && !!ssrBuild !== ssrFromOptions
               ? `defineConfig ssrBuild !== ssr from load options`
               : 'hi'
-          }' }`
+            }' }`
         }
       },
     },

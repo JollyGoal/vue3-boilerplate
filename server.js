@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import express from 'express'
+import ip from 'ip'
 
 const isTest = process.env.VITEST
 
@@ -20,21 +21,19 @@ export async function createServer(
 
   const manifest = isProd
     ? JSON.parse(
-        fs.readFileSync(resolve('dist/client/ssr-manifest.json'), 'utf-8'),
-      )
+      fs.readFileSync(resolve('dist/client/ssr-manifest.json'), 'utf-8'),
+    )
     : {}
 
   const app = express()
 
-  /**
-   * @type {import('vite').ViteDevServer}
-   */
+  // @type {import('vite').ViteDevServer}
   let vite
   if (!isProd) {
     vite = await (
       await import('vite')
     ).createServer({
-      base: '/test/',
+      base: '/',
       root,
       logLevel: isTest ? 'error' : 'info',
       server: {
@@ -56,7 +55,7 @@ export async function createServer(
   } else {
     app.use((await import('compression')).default())
     app.use(
-      '/test/',
+      '/',
       (await import('serve-static')).default(resolve('dist/client'), {
         index: false,
       }),
@@ -65,7 +64,7 @@ export async function createServer(
 
   app.use('*', async (req, res) => {
     try {
-      const url = req.originalUrl.replace('/test/', '/')
+      const url = req.originalUrl
 
       let template, render
       if (!isProd) {
@@ -99,7 +98,7 @@ export async function createServer(
 if (!isTest) {
   createServer().then(({ app }) =>
     app.listen(6173, () => {
-      console.log('http://localhost:6173')
+      console.log(`http://${ip.address()}:6173`)
     }),
   )
 }

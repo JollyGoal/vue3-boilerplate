@@ -10,10 +10,10 @@
   <p class="import-meta-url">{{ state.url }}</p>
   <p class="protocol">{{ state.protocol }}</p>
   <p class="nested-virtual">msg from nested virtual module: {{ virtualMsg }}</p>
-  <Button>CommonButton</Button>
+  <Button @click="switchLanguage()">CommonButton</Button>
   <div>
-    encrypted message:
-    <p class="encrypted-msg"></p>
+    translated message:
+    <p class="translated-msg">{{ $t('top.search') }}</p>
   </div>
 
   <ImportType />
@@ -24,10 +24,12 @@ import foo from '@foo'
 import { msg as virtualMsg } from '@virtual-file'
 import { reactive, defineAsyncComponent } from 'vue'
 import Button from '../components/button'
+import { useLanguage } from "../utils/language";
 const ImportType = load('ImportType')
 const Foo = defineAsyncComponent(() =>
   import('../components/Foo').then((mod) => mod.Foo),
 )
+const { switchLanguage } = useLanguage();
 function load(file) {
   return defineAsyncComponent(() => import(`../components/${file}.vue`))
 }
@@ -41,6 +43,7 @@ const state = reactive({
   protocol,
   url,
 })
+
 </script>
 
 <style scoped>

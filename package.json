@@ -15,13 +15,16 @@
     "debug": "node --inspect-brk server"
   },
   "dependencies": {
+    "@intlify/unplugin-vue-i18n": "^0.8.1",
     "@vitejs/test-example-external-component": "file:example-external-component",
+    "ip": "^1.1.8",
     "pinia": "^2.0.28",
     "vue": "^3.2.45",
-    "vue-i18n": "^8.28.2",
+    "vue-i18n": "^9.3.0-beta.3",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@intlify/vite-plugin-vue-i18n": "^7.0.0-beta.3",
     "@rushstack/eslint-patch": "^1.1.4",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
