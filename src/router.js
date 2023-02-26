@@ -116,13 +116,15 @@ const beforeEach = async (to, from, next) => {
   return next()
 }
 
+const base = process.env.GITHUB_PAGES === 'yes' ? '/vue3-boilerplate/' : '/'
+
 export function createRouter() {
   const router = _createRouter({
     // use appropriate history implementation for server/client
     // import.meta.env.SSR is injected by Vite.
     history: import.meta.env.SSR
-      ? createMemoryHistory('/')
-      : createWebHistory('/'),
+      ? createMemoryHistory(base)
+      : createWebHistory(base),
     routes,
     beforeEach
   })
