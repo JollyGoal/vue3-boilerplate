@@ -38,7 +38,7 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node_version: 18
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
       - run: npm run build
 
       - name: Upload artifact
