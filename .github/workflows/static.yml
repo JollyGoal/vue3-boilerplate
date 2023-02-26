@@ -39,7 +39,7 @@ jobs:
         with:
           node_version: 18
       - run: npm ci --legacy-peer-deps
-      - run: npm run build
+      - run: GITHUB_PAGES=yes npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1

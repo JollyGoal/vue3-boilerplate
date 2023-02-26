@@ -12,7 +12,7 @@ const nestedVirtualFile = '@nested-virtual-file'
 const nestedVirtualId = '\0' + nestedVirtualFile
 
 // const base = '/'
-const base = process.env.GITHUB_ACTIONS ? '/vue3-boilerplate/' : '/'
+const base = process.env.GITHUB_PAGES === 'yes' ? '/vue3-boilerplate/' : '/'
 
 // preserve this to test loading __filename & __dirname in ESM as Vite polyfills them.
 // if Vite incorrectly load this file, node.js would error out.
